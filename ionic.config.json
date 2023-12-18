@@ -1,0 +1,7 @@
+{
+  "name": "master serve",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
