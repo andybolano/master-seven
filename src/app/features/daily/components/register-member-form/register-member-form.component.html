@@ -1,0 +1,44 @@
+<form class="ion-padding" [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+  <ion-input 
+    label="Nombres" 
+    labelPlacement="floating" 
+    placeholder="Ingresar nombres"
+    formControlName="names"
+  />
+  <ion-input 
+    label="Apellidos" 
+    labelPlacement="floating" 
+    placeholder="Ingresar apellidos"
+    formControlName="lastName"
+  />
+  <ion-input 
+    label="Teléfono" 
+    labelPlacement="floating" 
+    placeholder="Ingresar teléfono"
+    formControlName="phone"
+  />
+ 
+  <ion-select 
+      aria-label="Mes de cumpleaños" 
+      interface="popover" 
+      placeholder="Mes de cumpleaños"
+      formControlName="birthMonth"
+  >
+    @for (item of monthsList; track $index) {
+      <ion-select-option value="{{ $index }}">{{ item }}</ion-select-option>
+    }
+  </ion-select>
+
+  <ion-input 
+    type="number"
+    label="Dia de cumpleaños" 
+    labelPlacement="floating" 
+    placeholder="Ingresar dia"
+    [max]="daysOfMonth"
+    [min]="1"
+    formControlName="birthDay"
+  />
+
+  <br>
+  <ion-button class="full-width" type="submit" [disabled]="!memberForm.valid">Crear Miembro</ion-button>
+</form>

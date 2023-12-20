@@ -22,6 +22,11 @@
       "es2018", 
       "dom"
     ],
+    "paths": {
+      "@features/*": ["./src/app/features/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@env": ["./src/environments/environment"],
+    },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

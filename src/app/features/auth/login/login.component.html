@@ -1,0 +1,30 @@
+<div class="ion-padding center full-height full-width">
+  <ion-card class="full-width">
+    <ion-card-header>
+      <ion-card-title>
+        Inicio de Sesión
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        <ion-input 
+          type="email"
+          label="Email" 
+          labelPlacement="floating" 
+          placeholder="Ingresar email"
+          formControlName="email"
+        />
+        <ion-input 
+          formControlName="password"
+          type="password"
+          label="Contraseña" 
+          label-placement="floating" 
+          placeholder="Ingresar Contraseña" 
+        />
+        <br>
+        <ion-button class="full-width" type="submit" [disabled]="!authForm.valid">Iniciar Sesión</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</div>
+

@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="start">Clase #2</ion-title>
+    <ion-buttons slot="end" id="open-modal" expand="block">
+      <ion-icon 
+        color="light" 
+        slot="start" 
+        name="person-add-outline"
+      />
+      <ion-button color="light">Nuevo Miembro</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <div class="subtitle">
+      4to trimestre
+    </div>
+    <div class="full-width flex">
+      <ion-button color="light" fill="clear" (click)="next()">
+        <ion-icon 
+            color="medium" 
+            slot="icon-only" 
+            name="chevron-back-outline"
+          />
+      </ion-button>
+      <div>
+        1er Sabado - Noviembre 11
+      </div>
+      <ion-button color="light" fill="clear" (click)="prev()">
+        <ion-icon 
+            color="medium" 
+            slot="icon-only" 
+            name="chevron-forward-outline"
+          />
+      </ion-button>
+    </div>
+  </div>
+  <ion-list>
+    <ion-item-divider>
+      <div class="grid">
+        <ion-label class="grid__colum"> Miebros de clase</ion-label>
+        <p class="sm-text">
+          Asistencia
+        </p>
+        <p class="sm-text">
+          Estudio
+        </p>
+        <p class="sm-text">
+          Misión
+        </p>
+      </div>
+    </ion-item-divider>
+    @for (item of members; track $index) {
+      <ion-item>
+        <div class="grid">
+          <div class="grid__colum name">
+            {{ item.name }} {{ item.lastName }}
+          </div>
+          @for (register of item.registersTypes; track $index) {
+            <div class="grid__colum">
+                <ion-checkbox [(ngModel)]="register.value"/>
+            </div>
+          }
+        </div>
+      </ion-item>
+    }
+  </ion-list>
+  <div class="ion-padding">
+    <ion-button class="full-width" type="submit">Guardar Registros</ion-button>
+  </div>
+</ion-content>
+
+<ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <app-register-member-form/>
+  </ng-template>
+</ion-modal>
