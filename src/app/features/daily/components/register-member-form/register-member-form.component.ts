@@ -1,7 +1,6 @@
 import { months } from '@shared/utils/months';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import * as dayjs from 'dayjs';
 import { MemberService } from '@shared/common-services/member.service';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';

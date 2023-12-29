@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonModal } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { LoadingService } from '@shared/common-services/loading.service';
 import { RegistersService } from '@shared/common-services/registers.service';
 import { ToastService } from '@shared/common-services/toast.service';
 import { UserService } from '@shared/common-services/user.service';
@@ -17,12 +17,11 @@ export class DailyComponent  implements OnInit {
   public schoolClass: SchoolClass = this.userService.getClassInformation() as SchoolClass;
   public isModalOpen = false
 
-  loading: boolean = false;
-
   constructor (
     private readonly registersService: RegistersService,
     private readonly userService: UserService,
     private readonly toast: ToastService,
+    private readonly loading: LoadingService,
   ) { }
 
   ngOnInit() {
@@ -30,10 +29,11 @@ export class DailyComponent  implements OnInit {
   }
 
   private getRegisters (): void {
+    this.loading.show('Consultando registros')
     this.registersService.getByDate('2023-12-12')
     .pipe(
       map((response: any) => response),
-      finalize((): boolean => this.loading = false ),
+      finalize((): void => this.loading.close()),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
       next: (response: any) => this.resolveList(response)
@@ -45,6 +45,7 @@ export class DailyComponent  implements OnInit {
   }
 
   public saveRegisters (): void {
+    this.loading.show('Guardando registros')
     const dataToSave = this.members.map(member => {
       return {
         memberId: member.id,
@@ -55,20 +56,11 @@ export class DailyComponent  implements OnInit {
 
     this.registersService.save(dataToSave)
     .pipe(
-      map((response: any) => response),
-      finalize((): boolean => this.loading = false ),
+      finalize((): void => this.loading.close() ),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
-      next: (response: any) => this.getRegisters()
+      next: () => this.getRegisters()
     });
-  }
-
-  public next (): void {
-    
-  }
-
-  public prev (): void {
-    
   }
 
   private errorRequest (error: HttpErrorResponse ): Observable<never> {
@@ -81,9 +73,7 @@ export class DailyComponent  implements OnInit {
     this.getRegisters()
   }
 
-  setOpen(isOpen: boolean) {
+  public setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
-
-
 }

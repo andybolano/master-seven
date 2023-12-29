@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterMemberFormComponent } from './components/register-member-form/register-member-form.component';
 import { RegistersService } from '@shared/common-services/registers.service';
 import { MemberService } from '@shared/common-services/member.service';
+import { SelectDateComponent } from './components/select-date/select-date.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   declarations: [
     DailyComponent,
     RegisterMemberFormComponent,
+    SelectDateComponent,
   ],
   imports: [
     ReactiveFormsModule,

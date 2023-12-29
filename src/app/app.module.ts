@@ -9,6 +9,7 @@ import { RequestHeadersInterceptor } from '@shared/common-services/interceptors/
 import { environment } from '@env';
 import { UserService } from '@shared/common-services/user.service';
 import { ToastService } from '@shared/common-services/toast.service';
+import { LoadingService } from '@shared/common-services/loading.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { ToastService } from '@shared/common-services/toast.service';
     },
     UserService,
     ToastService,
+    LoadingService,
   ],
   bootstrap: [AppComponent],
   exports:[IonicModule,  IonButton]
