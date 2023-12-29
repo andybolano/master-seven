@@ -26,3 +26,12 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 
+.empty-placeholder {
+    width: 100%;
+    text-align: center;
+    color: #c3c3c3;
+
+    .icon {
+        font-size: 8rem;
+    }
+}

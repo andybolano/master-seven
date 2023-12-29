@@ -5,6 +5,8 @@ import { DailyComponent } from './daily.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterMemberFormComponent } from './components/register-member-form/register-member-form.component';
+import { RegistersService } from '@shared/common-services/registers.service';
+import { MemberService } from '@shared/common-services/member.service';
 
 const routes: Routes = [
   {
@@ -16,17 +18,21 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     DailyComponent,
-    RegisterMemberFormComponent
+    RegisterMemberFormComponent,
   ],
   imports: [
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
   ],
   exports: [
-    RouterModule
+    RouterModule,
+  ],
+  providers: [
+    RegistersService,
+    MemberService,
   ]
 })
 export class DailyRoutingModule { }

@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestHeadersInterceptor } from '@shared/common-services/interceptors/request-header.interceptor';
 import { environment } from '@env';
+import { UserService } from '@shared/common-services/user.service';
+import { ToastService } from '@shared/common-services/toast.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +31,9 @@ import { environment } from '@env';
     {
         provide: 'env',
         useValue: environment,
-    }
+    },
+    UserService,
+    ToastService,
   ],
   bootstrap: [AppComponent],
   exports:[IonicModule,  IonButton]
