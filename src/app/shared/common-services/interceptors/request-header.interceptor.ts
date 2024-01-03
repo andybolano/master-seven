@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
 export class RequestHeadersInterceptor implements HttpInterceptor {
     constructor (private userService: UserService) {}
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        const token: string | null = this.userService.getToken();
+        const token: string | null = this.userService.getToken() || '';
 
         request = request.clone({
             setHeaders: {

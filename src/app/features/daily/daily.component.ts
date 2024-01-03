@@ -71,11 +71,11 @@ export class DailyComponent {
   }
 
   public userRegistered (): void {
-    this.setOpen(false)
+    this.setToggleModalMember(false)
     this.getRegisters(this.dateSelected)
   }
 
-  public setOpen(isOpen: boolean) {
+  public setToggleModalMember(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 

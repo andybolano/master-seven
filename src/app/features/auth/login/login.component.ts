@@ -40,11 +40,13 @@ export class LoginComponent {
   }
 
   successLogin (userToken: UserToken): void {
+    console.log(userToken)
     this.userService.setData(userToken)
     this.router.navigate(['/daily'], { relativeTo: this.route });
   }
 
   errorLogin (error: HttpErrorResponse ): Observable<never> {
+    console.log(error)
     this.toast.show(error.error.message)
     return throwError(() => error);
   }
