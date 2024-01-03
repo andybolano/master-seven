@@ -11,9 +11,7 @@ import { UserService } from '../user.service';
 
 @Injectable()
 export class RequestHeadersInterceptor implements HttpInterceptor {
-    constructor (private userService: UserService) {
-
-    }
+    constructor (private userService: UserService) {}
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const token: string | null = this.userService.getToken();
 
@@ -28,8 +26,6 @@ export class RequestHeadersInterceptor implements HttpInterceptor {
                 headers: request.headers.set('Authorization', `Bearer ${token}`) 
             });
         }
-
-    
         return next.handle(request);
     }
 }

@@ -12,10 +12,11 @@ import { Observable, catchError, finalize, map, throwError } from 'rxjs';
   templateUrl: './daily.component.html',
   styleUrls: ['./daily.component.scss']
 })
-export class DailyComponent  implements OnInit {
+export class DailyComponent {
   public members: any[] = []
   public schoolClass: SchoolClass = this.userService.getClassInformation() as SchoolClass;
-  public isModalOpen = false
+  public isModalOpen = false;
+  private dateSelected = ''
 
   constructor (
     private readonly registersService: RegistersService,
@@ -24,13 +25,9 @@ export class DailyComponent  implements OnInit {
     private readonly loading: LoadingService,
   ) { }
 
-  ngOnInit() {
-    this.getRegisters()
-  }
-
-  private getRegisters (): void {
+  private getRegisters (date: string): void {
     this.loading.show('Consultando registros')
-    this.registersService.getByDate('2023-12-12')
+    this.registersService.getByDate(date)
     .pipe(
       map((response: any) => response),
       finalize((): void => this.loading.close()),
@@ -46,21 +43,26 @@ export class DailyComponent  implements OnInit {
 
   public saveRegisters (): void {
     this.loading.show('Guardando registros')
-    const dataToSave = this.members.map(member => {
-      return {
+    const dataToSave = this.members.map(member => (
+      {
         memberId: member.id,
-        date: '2023-12-12',
+        date: this.dateSelected,
         registerTypes: member.registerTypes
       }
-    })
+    ))
 
     this.registersService.save(dataToSave)
     .pipe(
       finalize((): void => this.loading.close() ),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
-      next: () => this.getRegisters()
+      next: () => this.getRegisters(this.dateSelected)
     });
+  }
+
+  public setSelectedDate (date: string): void {
+    this.dateSelected = date
+    this.getRegisters(date)
   }
 
   private errorRequest (error: HttpErrorResponse ): Observable<never> {
@@ -70,10 +72,14 @@ export class DailyComponent  implements OnInit {
 
   public userRegistered (): void {
     this.setOpen(false)
-    this.getRegisters()
+    this.getRegisters(this.dateSelected)
   }
 
   public setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+  }
+
+  public logout(): void {
+    this.userService.closeSession()
   }
 }

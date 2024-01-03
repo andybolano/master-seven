@@ -25,7 +25,6 @@ export class GeneralRequestService {
     post<T, Y>(endPoints: string, params: Y): Observable<T> {
         return this.http.post<T>(endPoints, params).
             pipe(
-                retry(1),
                 first(),
                 catchError((error: HttpErrorResponse) => this.httpCommon.handleError<T>(error)),
             );

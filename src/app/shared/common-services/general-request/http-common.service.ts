@@ -1,14 +1,20 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
+import { UserService } from '../user.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HttpCommonService {
+    constructor (private readonly user: UserService) {
+
+    }
 
     handleError<T>(error: HttpErrorResponse): Observable<T> {
-        console.error(JSON.stringify(error))
+        if (error.status === 401) {
+            this.user.closeSession()
+        }
         return throwError(() => error);
     }
 }

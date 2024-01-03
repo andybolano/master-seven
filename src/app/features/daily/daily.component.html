@@ -1,5 +1,19 @@
 <ion-header>
   <ion-toolbar>
+    <ion-button id="click-trigger" slot="start" fill="clear">
+      <ion-icon 
+        color="light"
+        name="ellipsis-vertical-outline" 
+      />
+    </ion-button>
+    <ion-popover trigger="click-trigger" triggerAction="click" [dismissOnSelect]="true">
+      <ng-template>
+        <ion-content class="ion-padding" (click)="logout()">
+          Cerrar Sesión
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+
     <ion-title slot="start">{{ schoolClass.name }}</ion-title>
     <ion-buttons slot="end" expand="block" (click)="setOpen(true)">
       <ion-icon 
@@ -12,7 +26,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <app-select-date />
+  <app-select-date (dateChanged)="setSelectedDate($event)"/>
  
   @if (members.length) {
     <ion-list>

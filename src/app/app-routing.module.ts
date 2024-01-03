@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'daily',
-    loadChildren: () => import('./features/daily/daily.module').then(m => m.DailyModule)
+    loadChildren: () => import('./features/daily/daily.module').then(m => m.DailyModule),
+    canActivate: [AuthGuard],
   }
 ];
 @NgModule({

@@ -3,7 +3,7 @@
     {{ quarter }}
   </div>
   <div class="full-width flex">
-    <ion-button color="light" fill="clear" (click)="next()">
+    <ion-button color="light" fill="clear" (click)="prev()">
       <ion-icon 
           color="medium" 
           slot="icon-only" 
@@ -11,9 +11,9 @@
         />
     </ion-button>
     <div>
-      1er Sabado - Noviembre 11
+      {{ saturdayNumber }} - {{ date | formatDate: 'D MMMM YYYY' }}
     </div>
-    <ion-button color="light" fill="clear" (click)="prev()">
+    <ion-button color="light" fill="clear" (click)="next()">
       <ion-icon 
           color="medium" 
           slot="icon-only" 

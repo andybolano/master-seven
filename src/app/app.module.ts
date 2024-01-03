@@ -10,6 +10,7 @@ import { environment } from '@env';
 import { UserService } from '@shared/common-services/user.service';
 import { ToastService } from '@shared/common-services/toast.service';
 import { LoadingService } from '@shared/common-services/loading.service';
+import { AuthGuard } from '@shared/guards/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,8 @@ import { LoadingService } from '@shared/common-services/loading.service';
     HttpClientModule,
     BrowserModule, 
     AppRoutingModule, 
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+
   ],
   providers: [
     { 
@@ -36,6 +38,7 @@ import { LoadingService } from '@shared/common-services/loading.service';
     UserService,
     ToastService,
     LoadingService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
   exports:[IonicModule,  IonButton]
