@@ -1,4 +1,3 @@
 [build]
-  publish = "www"
+  publish = "www/browser"
   command = "ionic build --prod"
-  
