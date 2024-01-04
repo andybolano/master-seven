@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonButton, IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -11,6 +11,7 @@ import { UserService } from '@shared/common-services/user.service';
 import { ToastService } from '@shared/common-services/toast.service';
 import { LoadingService } from '@shared/common-services/loading.service';
 import { AuthGuard } from '@shared/guards/auth.guard';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,8 +19,10 @@ import { AuthGuard } from '@shared/guards/auth.guard';
     HttpClientModule,
     BrowserModule, 
     AppRoutingModule, 
-    IonicModule.forRoot(),
-
+    IonicModule.forRoot(), ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    }), 
   ],
   providers: [
     { 

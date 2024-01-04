@@ -5,6 +5,7 @@ import { MemberService } from '@shared/common-services/member.service';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '@shared/common-services/toast.service';
+import { UserToken } from '@shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-register-member-form',
@@ -37,13 +38,14 @@ export class RegisterMemberFormComponent {
   public onSubmit (): void {
     this.memberService.save(this.memberForm.value)
     .pipe(
-      tap( ( userToken: any ): void => this.successSave( userToken ) ),
+      tap( ( userToken: UserToken ): void => this.successSave( userToken ) ),
       finalize( (): boolean => this.loading = false ),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe();
   }
 
-  successSave (data: any): void {
+  successSave (data: UserToken): void {
+    this.toast.show('Miembro registrado correctamente!')
      this.userRegistered.emit('')
   }
 

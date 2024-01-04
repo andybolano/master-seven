@@ -5,7 +5,7 @@ import { RegistersService } from '@shared/common-services/registers.service';
 import { ToastService } from '@shared/common-services/toast.service';
 import { UserService } from '@shared/common-services/user.service';
 import { SchoolClass } from '@shared/interfaces/user.interface';
-import { Observable, catchError, finalize, map, throwError } from 'rxjs';
+import { Observable, catchError, finalize, map, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-daily',
@@ -54,10 +54,15 @@ export class DailyComponent {
     this.registersService.save(dataToSave)
     .pipe(
       finalize((): void => this.loading.close() ),
+      tap(( response: any ): void => this.successRegister() ),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
       next: () => this.getRegisters(this.dateSelected)
     });
+  }
+
+  private successRegister (): void {
+    this.toast.show('Bien hecho, se ha realizado el registro corretamente.')
   }
 
   public setSelectedDate (date: string): void {
