@@ -4,6 +4,7 @@ import { LoadingService } from '@shared/common-services/loading.service';
 import { RegistersService } from '@shared/common-services/registers.service';
 import { ToastService } from '@shared/common-services/toast.service';
 import { UserService } from '@shared/common-services/user.service';
+import { Member } from '@shared/interfaces/member.interface';
 import { SchoolClass } from '@shared/interfaces/user.interface';
 import { today } from '@shared/utils/date';
 import { Observable, catchError, finalize, map, tap, throwError } from 'rxjs';
@@ -31,16 +32,16 @@ export class DailyComponent {
     this.loading.show('Consultando registros')
     this.registersService.getByDate(date)
     .pipe(
-      map((response: any) => response),
+      map((response: any) => response.members),
       finalize((): void => this.loading.close()),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
-      next: (response: any) => this.resolveList(response)
+      next: (response: Member[]) => this.resolveList(response)
     });
   }
 
-  private resolveList (list: any): void {
-    this.members = list.members
+  private resolveList (members: Member[]): void {
+    this.members = members.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   public saveRegisters (): void {

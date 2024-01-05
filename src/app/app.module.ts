@@ -12,6 +12,7 @@ import { ToastService } from '@shared/common-services/toast.service';
 import { LoadingService } from '@shared/common-services/loading.service';
 import { AuthGuard } from '@shared/guards/auth.guard';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoginGuard } from '@shared/guards/login.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ToastService,
     LoadingService,
     AuthGuard,
+    LoginGuard,
   ],
   bootstrap: [AppComponent],
   exports:[IonicModule,  IonButton]
