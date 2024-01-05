@@ -34,13 +34,13 @@
         <div class="grid">
           <ion-label class="grid__colum"> Miebros de clase</ion-label>
           <p class="sm-text">
-            Asistencia
-          </p>
-          <p class="sm-text">
-            Estudio
+            Asistió
           </p>
           <p class="sm-text">
             Misión
+          </p>
+          <p class="sm-text">
+            Estudió
           </p>
         </div>
       </ion-item-divider>
@@ -61,7 +61,12 @@
     </ion-list>
 
     <div class="ion-padding">
-      <ion-button class="full-width" type="submit" (click)="saveRegisters()">
+      <ion-button 
+        class="full-width" 
+        type="submit" 
+        [disabled]="today !== dateSelected"
+        (click)="saveRegisters()"
+      >
         Guardar Registros
       </ion-button>
     </div>

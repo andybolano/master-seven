@@ -5,7 +5,7 @@ interface Ordinals {
     [key: number]: string;
 }
 
-const today = dayjs();
+export const today = dayjs();
 
 export const nextSaturday = (date = today): dayjs.Dayjs => {
     const daysUntilNextSaturday = (6 - date.day() + 7) % 7;

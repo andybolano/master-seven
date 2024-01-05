@@ -1,17 +1,20 @@
 <form class="ion-padding" [formGroup]="memberForm" (ngSubmit)="onSubmit()">
   <ion-input 
+    type="text"
     label="Nombres" 
     labelPlacement="floating" 
     placeholder="Ingresar nombres"
     formControlName="name"
   />
-  <ion-input 
+  <ion-input
+    type="text" 
     label="Apellidos" 
     labelPlacement="floating" 
     placeholder="Ingresar apellidos"
     formControlName="lastName"
   />
   <ion-input 
+    type="phone"
     label="Teléfono" 
     labelPlacement="floating" 
     placeholder="Ingresar teléfono"

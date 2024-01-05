@@ -103,10 +103,15 @@ ion-button {
   height: 100%;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .center {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 ion-title.title-large {

@@ -5,6 +5,7 @@ import { RegistersService } from '@shared/common-services/registers.service';
 import { ToastService } from '@shared/common-services/toast.service';
 import { UserService } from '@shared/common-services/user.service';
 import { SchoolClass } from '@shared/interfaces/user.interface';
+import { today } from '@shared/utils/date';
 import { Observable, catchError, finalize, map, tap, throwError } from 'rxjs';
 
 @Component({
@@ -16,7 +17,8 @@ export class DailyComponent {
   public members: any[] = []
   public schoolClass: SchoolClass = this.userService.getClassInformation() as SchoolClass;
   public isModalOpen = false;
-  private dateSelected = ''
+  public today: string = today.toString()
+  public dateSelected = ''
 
   constructor (
     private readonly registersService: RegistersService,
