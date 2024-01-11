@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { GeneralRequestService } from "./general-request/general-request.service";
+import { GeneralRequestService } from "../../../shared/common-services/general-request/general-request.service";
 import { EndPoints } from "@shared/dictionaries/end-points/end-points";
 import { Observable } from "rxjs";
 

@@ -8,6 +8,9 @@
     </ion-button>
     <ion-popover trigger="click-trigger" triggerAction="click" [dismissOnSelect]="true">
       <ng-template>
+        <ion-content class="ion-padding">
+          <ion-toggle [checked]="seeInactiveMembers" (click)="toggleSeeInactiveMembers()">Ver Inactivos</ion-toggle>
+        </ion-content>
         <ion-content class="ion-padding" (click)="logout()">
           Cerrar Sesión
         </ion-content>
@@ -45,14 +48,16 @@
         </div>
       </ion-item-divider>
       @for (item of members; track $index) {
-        <app-item-member [member]="item" (memberUpdated)="memberUpdated"/>
+        @if ((seeInactiveMembers && !item.status) || item.status) {
+          <app-item-member [member]="item" />
+        }
       }
     </ion-list>
     <div class="ion-padding">
       <ion-button 
         class="full-width" 
         type="submit" 
-        [disabled]="today !== dateSelected"
+      
         (click)="saveRegisters()"
       >
         Guardar Registros
@@ -74,6 +79,6 @@
   (didDismiss)="setToggleModalMember(false)"
 >
   <ng-template>
-    <app-register-member-form (userRegistered)="userRegistered($event)"/>
+    <app-register-member-form (userRegistered)="handleUserRegistered($event)"/>
   </ng-template>
 </ion-modal>

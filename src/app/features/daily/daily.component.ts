@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '@shared/common-services/loading.service';
-import { RegistersService } from '@shared/common-services/registers.service';
+import { MemberService } from '@features/daily/services/member.service';
+import { RegistersService } from './services/registers.service';
 import { ToastService } from '@shared/common-services/toast.service';
 import { UserService } from '@shared/common-services/user.service';
 import { Member } from '@shared/interfaces/member.interface';
@@ -12,21 +13,28 @@ import { Observable, catchError, finalize, map, tap, throwError } from 'rxjs';
 @Component({
   selector: 'app-daily',
   templateUrl: './daily.component.html',
-  styleUrls: ['./daily.component.scss']
+  styleUrls: ['./daily.component.scss'],
+  providers: [MemberService]
 })
 export class DailyComponent {
-  public members: any[] = []
+  public members: Member[] = []
   public schoolClass: SchoolClass = this.userService.getClassInformation() as SchoolClass;
   public isModalOpen = false;
   public today: string = today.format('YYYY-MM-DD')
   public dateSelected = ''
+  public seeInactiveMembers = false;
 
   constructor (
     private readonly registersService: RegistersService,
     private readonly userService: UserService,
     private readonly toast: ToastService,
     private readonly loading: LoadingService,
-  ) { }
+    private readonly membersService: MemberService
+  ) { 
+    this.membersService.subject.subscribe((members: Member[])=> {
+      this.members = members
+    })
+  }
 
   private getRegisters (date: string): void {
     this.loading.show('Consultando registros')
@@ -41,7 +49,8 @@ export class DailyComponent {
   }
 
   private resolveList (members: Member[]): void {
-    this.members = members.sort((a, b) => a.name.localeCompare(b.name));
+    const membersSorted = members.sort((a, b) => a.name.localeCompare(b.name));
+    this.membersService.setMembers(membersSorted)
   }
 
   public saveRegisters (): void {
@@ -78,14 +87,9 @@ export class DailyComponent {
     return throwError(() => error);
   }
 
-  public userRegistered (newMember: Member): void {
+  public handleUserRegistered (newMember: Member): void {
     this.setToggleModalMember(false)
-    this.members.push(newMember)
-  }
-
-  public memberUpdated (member: Member): void {
-    alert()
-    this.getRegisters(this.dateSelected)
+    this.membersService.addMember(newMember)
   }
 
   public setToggleModalMember(isOpen: boolean) {
@@ -94,6 +98,10 @@ export class DailyComponent {
 
   public logout(): void {
     this.userService.closeSession()
+  }
+
+  public toggleSeeInactiveMembers (): void {
+    this.seeInactiveMembers = !this.seeInactiveMembers
   }
 
 }

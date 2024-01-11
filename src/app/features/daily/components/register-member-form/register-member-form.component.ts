@@ -1,7 +1,7 @@
 import { months } from '@shared/utils/months';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MemberService } from '@shared/common-services/member.service';
+import { MemberService } from '@features/daily/services/member.service';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '@shared/common-services/toast.service';
@@ -48,7 +48,7 @@ export class RegisterMemberFormComponent {
 
   successSave (member: Member): void {
     this.toast.show('Miembro registrado correctamente!')
-     this.userRegistered.emit(member)
+    this.userRegistered.emit(member)
   }
 
   errorRequest (error: HttpErrorResponse ): Observable<never> {

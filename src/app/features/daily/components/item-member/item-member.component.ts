@@ -2,7 +2,7 @@ import { LoadingService } from '@shared/common-services/loading.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Member } from '@shared/interfaces/member.interface';
-import { MemberService } from '@shared/common-services/member.service';
+import { MemberService } from '@features/daily/services/member.service';
 import { Observable, catchError, finalize, map, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '@shared/common-services/toast.service';
@@ -18,7 +18,7 @@ export class ItemMemberComponent {
   
   @Output()
   memberUpdated = new EventEmitter<Member>();
-  
+
   public isModalOpen = false;
   public actionSheetButtons = [
     {
@@ -86,7 +86,7 @@ export class ItemMemberComponent {
 
   private resolveUpdate (member: Member): void {
     this.toast.show('Miembro actualizado correctamente')
-    this.memberUpdated.emit(member)
+    this.memberService.updateMemberStatus(member)
   }
 
   private errorRequest (error: HttpErrorResponse ): Observable<never> {
