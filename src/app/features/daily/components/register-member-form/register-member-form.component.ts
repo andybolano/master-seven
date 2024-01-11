@@ -5,8 +5,8 @@ import { MemberService } from '@shared/common-services/member.service';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '@shared/common-services/toast.service';
-import { UserToken } from '@shared/interfaces/user.interface';
 import { LoadingService } from '@shared/common-services/loading.service';
+import { Member } from '@shared/interfaces/member.interface';
 
 @Component({
   selector: 'app-register-member-form',
@@ -17,7 +17,7 @@ import { LoadingService } from '@shared/common-services/loading.service';
 export class RegisterMemberFormComponent {
 
   @Output()
-  userRegistered = new EventEmitter<string>();
+  userRegistered = new EventEmitter<Member>();
 
   public monthsList: string[] = months
   public daysOfMonth: number = 31
@@ -38,17 +38,17 @@ export class RegisterMemberFormComponent {
 
   public onSubmit (): void {
     this.loading.show('Registrando miembro')
-    this.memberService.save(this.memberForm.value)
+    this.memberService.save(this.memberForm.value as Member)
     .pipe(
-      tap( ( userToken: UserToken ): void => this.successSave( userToken ) ),
+      tap( ( member: Member ): void => this.successSave( member ) ),
       finalize( () => this.loading.close() ),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe();
   }
 
-  successSave (data: UserToken): void {
+  successSave (member: Member): void {
     this.toast.show('Miembro registrado correctamente!')
-     this.userRegistered.emit('')
+     this.userRegistered.emit(member)
   }
 
   errorRequest (error: HttpErrorResponse ): Observable<never> {

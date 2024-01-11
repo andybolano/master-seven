@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  urlApi: 'https://armoniayequilibriospa.com/apiescuelasabatica/public/api/v1'
+  urlApi: 'https://armoniayequilibriospa.com/apiescuelasabatica-test/public/api/v1'
 };

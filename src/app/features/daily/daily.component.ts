@@ -18,7 +18,7 @@ export class DailyComponent {
   public members: any[] = []
   public schoolClass: SchoolClass = this.userService.getClassInformation() as SchoolClass;
   public isModalOpen = false;
-  public today: string = today.toString()
+  public today: string = today.format('YYYY-MM-DD')
   public dateSelected = ''
 
   constructor (
@@ -78,8 +78,13 @@ export class DailyComponent {
     return throwError(() => error);
   }
 
-  public userRegistered (): void {
+  public userRegistered (newMember: Member): void {
     this.setToggleModalMember(false)
+    this.members.push(newMember)
+  }
+
+  public memberUpdated (member: Member): void {
+    alert()
     this.getRegisters(this.dateSelected)
   }
 
@@ -90,4 +95,5 @@ export class DailyComponent {
   public logout(): void {
     this.userService.closeSession()
   }
+
 }

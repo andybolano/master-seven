@@ -26,7 +26,8 @@ export class EndPoints {
 
     public members () {
         return {
-            save: (): string => `${this.urlApi}/members`
+            save: (): string => `${this.urlApi}/members`,
+            update: (id: number): string => `${this.urlApi}/members/${id}`
         }
     }
 }

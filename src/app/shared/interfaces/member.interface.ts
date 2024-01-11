@@ -1,8 +1,12 @@
 export interface Member {
-    id?: number,
+    id: number,
     name: string,
     lastName: string,
-    registerTypes: RegisterType[]
+    phone?: string,
+    birthDay?: string,
+    birthMonth?: string,
+    registerTypes: RegisterType[],
+    status: boolean,
 }
 
 export interface RegisterType {

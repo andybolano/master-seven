@@ -1,0 +1,20 @@
+.grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 7fr 1fr 1fr 1fr;
+    gap: 5px;
+    align-items: center;
+
+    &__colum {
+        padding: 5px;
+    }
+}
+
+.option-icon {
+    width: 45px;
+}
+
+.disabled {
+    color: var(--ion-color-danger);
+    opacity: 0.6;
+}

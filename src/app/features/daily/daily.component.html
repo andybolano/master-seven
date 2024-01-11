@@ -13,7 +13,6 @@
         </ion-content>
       </ng-template>
     </ion-popover>
-
     <ion-title slot="start">{{ schoolClass.name }}</ion-title>
     <ion-buttons slot="end" expand="block" (click)="setToggleModalMember(true)">
       <ion-icon 
@@ -25,6 +24,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
   <app-select-date (dateChanged)="setSelectedDate($event)"/>
  
@@ -45,21 +45,9 @@
         </div>
       </ion-item-divider>
       @for (item of members; track $index) {
-        <ion-item>
-          <div class="grid">
-            <div class="grid__colum name">
-              {{ item.name }} {{ item.lastName }}
-            </div>
-            @for (register of item.registerTypes; track $index) {
-              <div class="grid__colum">
-                  <ion-checkbox [(ngModel)]="register.value"/>
-              </div>
-            }
-          </div>
-        </ion-item>
+        <app-item-member [member]="item" (memberUpdated)="memberUpdated"/>
       }
     </ion-list>
-
     <div class="ion-padding">
       <ion-button 
         class="full-width" 
@@ -77,7 +65,6 @@
       <p>No hay miembros registrados en la clase</p>
     </div>
   }
-
 </ion-content>
 
 <ion-modal 
@@ -87,6 +74,6 @@
   (didDismiss)="setToggleModalMember(false)"
 >
   <ng-template>
-    <app-register-member-form (userRegistered)="userRegistered()"/>
+    <app-register-member-form (userRegistered)="userRegistered($event)"/>
   </ng-template>
 </ion-modal>

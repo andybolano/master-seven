@@ -9,6 +9,7 @@ import { RegistersService } from '@shared/common-services/registers.service';
 import { MemberService } from '@shared/common-services/member.service';
 import { SelectDateComponent } from './components/select-date/select-date.component';
 import { FormatDatePipe } from '@shared/pipes/formatDate.pipe';
+import { ItemMemberComponent } from './components/item-member/item-member.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     RegisterMemberFormComponent,
     SelectDateComponent,
     FormatDatePipe,
+    ItemMemberComponent,
   ],
   imports: [
     ReactiveFormsModule,
