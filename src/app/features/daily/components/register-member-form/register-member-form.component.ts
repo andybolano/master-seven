@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '@shared/common-services/toast.service';
 import { LoadingService } from '@shared/common-services/loading.service';
 import { Member } from '@shared/interfaces/member.interface';
+import { ResponseRequest } from '@shared/interfaces/reponse-request.interface';
 
 @Component({
   selector: 'app-register-member-form',
@@ -40,7 +41,7 @@ export class RegisterMemberFormComponent {
     this.loading.show('Registrando miembro')
     this.memberService.save(this.memberForm.value as Member)
     .pipe(
-      tap( ( member: Member ): void => this.successSave( member ) ),
+      tap( ( response: ResponseRequest<Member> ): void => this.successSave( response.data ) ),
       finalize( () => this.loading.close() ),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe();

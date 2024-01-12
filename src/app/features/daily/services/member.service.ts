@@ -1,3 +1,4 @@
+import { ResponseRequest } from './../../../shared/interfaces/reponse-request.interface';
 import { Injectable } from "@angular/core";
 import { EndPoints } from "@shared/dictionaries/end-points/end-points";
 import { GeneralRequestService } from "../../../shared/common-services/general-request/general-request.service";
@@ -17,12 +18,12 @@ export class MemberService {
 
     }
 
-    public save (data: Member): Observable<Member> {
-        return this.generalRequest.post<Member, Member>(this.endpoint.members().save(), data)
+    public save (data: Member): Observable<ResponseRequest<Member>> {
+        return this.generalRequest.post<ResponseRequest<Member>, Member>(this.endpoint.members().save(), data)
     }
 
-    public toggleStatusMember (data: Member): Observable<Member> {
-        return this.generalRequest.patch<Member, Member>(this.endpoint.members().update(data.id), data)
+    public toggleStatusMember (data: Member): Observable<ResponseRequest<Member>> {
+        return this.generalRequest.patch<ResponseRequest<Member>, Member>(this.endpoint.members().update(data.id), data)
     }
 
     public setMembers (members: Member[]): void {

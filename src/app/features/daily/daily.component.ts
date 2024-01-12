@@ -9,6 +9,8 @@ import { Member } from '@shared/interfaces/member.interface';
 import { SchoolClass } from '@shared/interfaces/user.interface';
 import { today } from '@shared/utils/date';
 import { Observable, catchError, finalize, map, tap, throwError } from 'rxjs';
+import { ResponseRequest } from '@shared/interfaces/reponse-request.interface';
+import { RegisterToSave } from '@shared/interfaces/register-to-save.interface';
 
 @Component({
   selector: 'app-daily',
@@ -40,7 +42,7 @@ export class DailyComponent {
     this.loading.show('Consultando registros')
     this.registersService.getByDate(date)
     .pipe(
-      map((response: any) => response.members),
+      map((response: ResponseRequest<Member[]>) => response.data),
       finalize((): void => this.loading.close()),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
@@ -61,12 +63,12 @@ export class DailyComponent {
         date: this.dateSelected,
         registerTypes: member.registerTypes
       }
-    ))
+    )) as RegisterToSave[]
 
     this.registersService.save(dataToSave)
     .pipe(
       finalize((): void => this.loading.close() ),
-      tap(( response: any ): void => this.successRegister() ),
+      tap(( response: ResponseRequest<Member[]> ): void => this.successRegister() ),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
       next: () => this.getRegisters(this.dateSelected)

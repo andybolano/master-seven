@@ -1,3 +1,4 @@
+import { ResponseRequest } from './../../../../shared/interfaces/reponse-request.interface';
 import { LoadingService } from '@shared/common-services/loading.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
@@ -80,7 +81,7 @@ export class ItemMemberComponent {
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) ),
       finalize((): void => this.loading.close()),
     ).subscribe({
-      next: (response: Member) => this.resolveUpdate(response)
+      next: (response: ResponseRequest<Member>) => this.resolveUpdate(response.data)
     });
   }
 

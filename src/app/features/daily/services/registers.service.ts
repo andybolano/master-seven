@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { GeneralRequestService } from "../../../shared/common-services/general-request/general-request.service";
 import { EndPoints } from "@shared/dictionaries/end-points/end-points";
 import { Observable } from "rxjs";
+import { Member } from "@shared/interfaces/member.interface";
+import { ResponseRequest } from "@shared/interfaces/reponse-request.interface";
+import { RegisterToSave } from "@shared/interfaces/register-to-save.interface";
 
 @Injectable()
 export class RegistersService {
@@ -12,12 +15,12 @@ export class RegistersService {
 
     }
 
-    getByDate (date: string): Observable<any> {
+    getByDate (date: string): Observable<ResponseRequest<Member[]>> {
         return this.generalRequestService.get<any>(this.endPoints.registers().getByDate(date))
     }
 
-    save (data: any): Observable<any> {
-        return this.generalRequestService.post<any, any>(this.endPoints.registers().save(), data)
+    save (data: RegisterToSave[]): Observable<ResponseRequest<Member[]>> {
+        return this.generalRequestService.post<ResponseRequest<Member[]>, RegisterToSave[]>(this.endPoints.registers().save(), data)
     }
 
 }
