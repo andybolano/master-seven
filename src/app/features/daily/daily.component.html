@@ -57,7 +57,7 @@
       <ion-button 
         class="full-width" 
         type="submit" 
-      
+        [disabled]="dateSelected !== today"
         (click)="saveRegisters()"
       >
         Guardar Registros

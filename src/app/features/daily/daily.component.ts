@@ -46,7 +46,7 @@ export class DailyComponent {
       finalize((): void => this.loading.close()),
       catchError( ( error: HttpErrorResponse ): Observable<never> => this.errorRequest( error ) )
     ).subscribe({
-      next: (response: Member[]) => this.resolveList(response)
+      next: (data: Member[]) => this.resolveList(data)
     });
   }
 
