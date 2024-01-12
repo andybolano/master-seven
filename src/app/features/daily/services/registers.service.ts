@@ -3,7 +3,7 @@ import { GeneralRequestService } from "../../../shared/common-services/general-r
 import { EndPoints } from "@shared/dictionaries/end-points/end-points";
 import { Observable } from "rxjs";
 import { Member } from "@shared/interfaces/member.interface";
-import { ResponseRequest } from "@shared/interfaces/reponse-request.interface";
+import { ResponseRequest } from "@shared/interfaces/response-request.interface";
 import { RegisterToSave } from "@shared/interfaces/register-to-save.interface";
 
 @Injectable()

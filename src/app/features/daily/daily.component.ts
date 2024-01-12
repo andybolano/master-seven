@@ -9,7 +9,7 @@ import { Member } from '@shared/interfaces/member.interface';
 import { SchoolClass } from '@shared/interfaces/user.interface';
 import { today } from '@shared/utils/date';
 import { Observable, catchError, finalize, map, tap, throwError } from 'rxjs';
-import { ResponseRequest } from '@shared/interfaces/reponse-request.interface';
+import { ResponseRequest } from '@shared/interfaces/response-request.interface';
 import { RegisterToSave } from '@shared/interfaces/register-to-save.interface';
 
 @Component({

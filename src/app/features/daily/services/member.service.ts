@@ -1,4 +1,4 @@
-import { ResponseRequest } from './../../../shared/interfaces/reponse-request.interface';
+import { ResponseRequest } from '@shared/interfaces/response-request.interface';
 import { Injectable } from "@angular/core";
 import { EndPoints } from "@shared/dictionaries/end-points/end-points";
 import { GeneralRequestService } from "../../../shared/common-services/general-request/general-request.service";

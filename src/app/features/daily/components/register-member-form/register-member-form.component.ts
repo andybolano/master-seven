@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '@shared/common-services/toast.service';
 import { LoadingService } from '@shared/common-services/loading.service';
 import { Member } from '@shared/interfaces/member.interface';
-import { ResponseRequest } from '@shared/interfaces/reponse-request.interface';
+import { ResponseRequest } from '@shared/interfaces/response-request.interface';
 
 @Component({
   selector: 'app-register-member-form',
